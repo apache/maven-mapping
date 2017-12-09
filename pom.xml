@@ -38,14 +38,19 @@
   </prerequisites>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/maven/shared/trunk/maven-mapping</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/maven/shared/trunk/maven-mapping</developerConnection>
-    <url>http://svn.apache.org/viewvc/maven/shared/trunk/maven-mapping</url>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/maven-mapping.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/maven-mapping.git</developerConnection>
+    <url>https://github.com/apache/maven-mapping/tree/${project.scm.tag}</url>
+    <tag>HEAD</tag>
   </scm>
   <issueManagement>
     <system>jira</system>
     <url>https://issues.apache.org/jira/browse/MSHARED/component/12326454</url>
   </issueManagement>
+  <ciManagement>
+    <system>Jenkins</system>
+    <url>https://builds.apache.org/job/maven-box/job/maven-mapping/</url>
+  </ciManagement>
   <distributionManagement>
     <site>
       <id>apache.website</id>
