@@ -33,10 +33,6 @@
   <name>Apache Maven Mapping</name>
   <description>A shared component to assist in interpolating file names using properties from a Maven project.</description>
 
-  <prerequisites>
-    <maven>${mavenVersion}</maven>
-  </prerequisites>
-
   <scm>
     <connection>scm:git:https://gitbox.apache.org/repos/asf/maven-mapping.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/maven-mapping.git</developerConnection>
