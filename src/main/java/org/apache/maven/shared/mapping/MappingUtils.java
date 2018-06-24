@@ -43,7 +43,6 @@ import org.codehaus.plexus.interpolation.RegexBasedInterpolator;
  *
  * @author Stephane Nicoll
  * @author Dennis Lundberg
- * @version $Id$
  */
 public final class MappingUtils
 {

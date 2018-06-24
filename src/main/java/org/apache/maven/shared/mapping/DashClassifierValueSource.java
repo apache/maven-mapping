@@ -27,7 +27,6 @@ import org.codehaus.plexus.interpolation.PropertiesBasedValueSource;
  * This is a ValueSource, that can be used in an Interpolator. It supports special expressions, like
  * <code>dashClassifier</code> and <code>dashClassifier?</code>.
  *
- * @version $Id$
  */
 public class DashClassifierValueSource
     extends PropertiesBasedValueSource
