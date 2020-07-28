@@ -1,6 +1,7 @@
 target/
 .project
 .classpath
+.checkstyle
 .settings/
 .svn/
 bin/
