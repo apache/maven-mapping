@@ -44,7 +44,7 @@
     <url>https://issues.apache.org/jira/issues/?jql=project%20%3D%20MSHARED%20AND%20component%20%3D%20maven-mapping</url>  </issueManagement>
   <ciManagement>
     <system>Jenkins</system>
-    <url>https://builds.apache.org/job/maven-box/job/maven-mapping/</url>
+    <url>https://ci-builds.apache.org/job/Maven/job/maven-box/job/maven-mapping/</url>
   </ciManagement>
   <distributionManagement>
     <site>
