@@ -25,7 +25,7 @@
 
 ${project.name}
 
-  These classes originates from the file name mapping code in Maven WAR Plugin.
+  These classes originate from the file name mapping code in the Maven WAR Plugin.
 
   The goal is to provide a shared component for all plugins that need to do
   mapping.
@@ -33,7 +33,7 @@ ${project.name}
 
 * MappingUtils
 
-  This class ha a single method <<<evaluateFileNameMapping>>> that take an
+  This class has a single method, <<<evaluateFileNameMapping>>>, that takes an
   expression and an <<<Artifact>>> as parameters. It returns a <<<String>>>
   which is the result of interpolating the values from the <<<Artifact>>>
   object into the expression.
