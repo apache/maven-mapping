@@ -67,13 +67,12 @@ public final class MappingUtils
      *
      * @param expression the expression to evaluate
      * @param artifact the artifact to use as value object for tokens
-     * @throws InterpolationException In case of an error.
-     * @return expression the evaluated expression
+     * @throws InterpolationException in case of an error
+     * @return expression the expression to be evaluated
      */
     public static String evaluateFileNameMapping( String expression, Artifact artifact )
         throws InterpolationException
     {
-        String value = expression;
 
         RegexBasedInterpolator interpolator = new RegexBasedInterpolator( "\\@\\{(", ")?([^}]+)\\}@" );
         interpolator.addValueSource( new ObjectBasedValueSource( artifact ) );
@@ -82,7 +81,7 @@ public final class MappingUtils
         // Support for special expressions, like @{dashClassifier?}@, see MWAR-212
         interpolator.addValueSource( new DashClassifierValueSource( artifact.getClassifier() ) );
 
-        value = interpolator.interpolate( value, "__artifact" );
+        String value = interpolator.interpolate( expression, "__artifact" );
 
         return value;
     }
