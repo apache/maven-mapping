@@ -23,8 +23,7 @@
   <parent>
     <groupId>org.apache.maven.shared</groupId>
     <artifactId>maven-shared-components</artifactId>
-    <version>34</version>
-    <relativePath>../../pom/maven/maven-shared-components/pom.xml</relativePath>
+    <version>43</version>
   </parent>
 
   <artifactId>maven-mapping</artifactId>
