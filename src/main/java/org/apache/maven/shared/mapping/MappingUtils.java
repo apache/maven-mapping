@@ -94,8 +94,6 @@ public final class MappingUtils {
         // Support for special expressions, like @{dashClassifier?}@, see MWAR-212
         interpolator.addValueSource(new DashClassifierValueSource(artifact.getClassifier()));
 
-        String value = interpolator.interpolate(expression, "__artifact");
-
-        return value;
+        return interpolator.interpolate(expression, "__artifact");
     }
 }
