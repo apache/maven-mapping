@@ -57,7 +57,6 @@ import org.codehaus.plexus.interpolation.RegexBasedInterpolator;
  * <p>
  * Although parts of this code comes from the Assembly Plugin, it cannot be shared with the Assembly Plugin. The reason
  * for this is that the Assembly Plugin always uses a prefix for the expressions, whereas this code does not.
- * <p/>
  *
  * @author Stephane Nicoll
  * @author Dennis Lundberg
