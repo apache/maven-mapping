@@ -21,7 +21,6 @@ package org.apache.maven.shared.mapping;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.handler.DefaultArtifactHandler;
-import org.codehaus.plexus.interpolation.InterpolationException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class MappingUtilsTest {
 
     @Test
-    void completeMapping() throws InterpolationException {
+    void completeMapping() throws Exception {
         Artifact jar = new DefaultArtifact(
                 "org.apache.sample",
                 "maven-test-lib",
@@ -49,14 +48,14 @@ class MappingUtilsTest {
     }
 
     @Test
-    void noVersionMapping() throws InterpolationException {
+    void noVersionMapping() throws Exception {
         Artifact jar = new DefaultArtifact(
                 "org.apache.sample", "maven-test-lib", "1.0", null, "jar", null, new DefaultArtifactHandler("jar"));
         assertEquals("maven-test-lib.jar", MappingUtils.evaluateFileNameMapping("@{artifactId}@.@{extension}@", jar));
     }
 
     @Test
-    void mappingWithGroupId() throws InterpolationException {
+    void mappingWithGroupId() throws Exception {
         Artifact jar = new DefaultArtifact(
                 "org.apache.sample", "maven-test-lib", "1.0", null, "jar", null, new DefaultArtifactHandler("jar"));
         assertEquals(
@@ -65,7 +64,7 @@ class MappingUtilsTest {
     }
 
     @Test
-    void mappingWithClassifier() throws InterpolationException {
+    void mappingWithClassifier() throws Exception {
         Artifact jar = new DefaultArtifact(
                 "org.apache.sample",
                 "maven-test-lib",
@@ -80,7 +79,7 @@ class MappingUtilsTest {
     }
 
     @Test
-    void mappingWithNullClassifier() throws InterpolationException {
+    void mappingWithNullClassifier() throws Exception {
         Artifact jar = new DefaultArtifact(
                 "org.apache.sample", "maven-test-lib", "1.0", null, "jar", null, new DefaultArtifactHandler("jar"));
         assertEquals(
@@ -92,7 +91,7 @@ class MappingUtilsTest {
      * Test for MWAR-212.
      */
     @Test
-    void mappingWithOptionalClassifier() throws InterpolationException {
+    void mappingWithOptionalClassifier() throws Exception {
         final String MAPPING_WITH_OPTIONAL_CLASSIFIER_1 = "@{artifactId}@-@{version}@@{dashClassifier}@.@{extension}@";
         final String MAPPING_WITH_OPTIONAL_CLASSIFIER_2 = "@{artifactId}@-@{version}@@{dashClassifier?}@.@{extension}@";
 
