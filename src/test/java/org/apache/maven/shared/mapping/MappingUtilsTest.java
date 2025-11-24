@@ -93,17 +93,15 @@ class MappingUtilsTest {
      */
     @Test
     void mappingWithOptionalClassifier() throws InterpolationException {
-        final String MAPPING_WITH_OPTIONAL_CLASSIFIER_1 = "@{artifactId}@-@{version}@@{dashClassifier}@.@{extension}@";
-        final String MAPPING_WITH_OPTIONAL_CLASSIFIER_2 = "@{artifactId}@-@{version}@@{dashClassifier?}@.@{extension}@";
+        final String mappingWithOptionalClassifier1 = "@{artifactId}@-@{version}@@{dashClassifier}@.@{extension}@";
+        final String mappingWithOptionalClassifier2 = "@{artifactId}@-@{version}@@{dashClassifier?}@.@{extension}@";
 
         Artifact jar = new DefaultArtifact(
                 "org.apache.sample", "maven-test-lib", "1.0", null, "jar", null, new DefaultArtifactHandler("jar"));
         assertEquals(
-                "maven-test-lib-1.0.jar",
-                MappingUtils.evaluateFileNameMapping(MAPPING_WITH_OPTIONAL_CLASSIFIER_1, jar));
+                "maven-test-lib-1.0.jar", MappingUtils.evaluateFileNameMapping(mappingWithOptionalClassifier1, jar));
         assertEquals(
-                "maven-test-lib-1.0.jar",
-                MappingUtils.evaluateFileNameMapping(MAPPING_WITH_OPTIONAL_CLASSIFIER_2, jar));
+                "maven-test-lib-1.0.jar", MappingUtils.evaluateFileNameMapping(mappingWithOptionalClassifier2, jar));
 
         jar = new DefaultArtifact(
                 "org.apache.sample",
@@ -115,9 +113,9 @@ class MappingUtilsTest {
                 new DefaultArtifactHandler("jar"));
         assertEquals(
                 "maven-test-lib-1.0-classifier.jar",
-                MappingUtils.evaluateFileNameMapping(MAPPING_WITH_OPTIONAL_CLASSIFIER_1, jar));
+                MappingUtils.evaluateFileNameMapping(mappingWithOptionalClassifier1, jar));
         assertEquals(
                 "maven-test-lib-1.0-classifier.jar",
-                MappingUtils.evaluateFileNameMapping(MAPPING_WITH_OPTIONAL_CLASSIFIER_2, jar));
+                MappingUtils.evaluateFileNameMapping(mappingWithOptionalClassifier2, jar));
     }
 }
