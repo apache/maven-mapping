@@ -17,3 +17,4 @@
 
 _extends: maven-gh-actions-shared
 tag-template: maven-mapping-$RESOLVED_VERSION
+filter-by-commitish: false
