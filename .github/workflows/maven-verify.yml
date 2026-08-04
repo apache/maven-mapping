@@ -27,6 +27,6 @@ jobs:
     uses: apache/maven-gh-actions-shared/.github/workflows/maven-verify.yml@v5
     with:
       maven4-enabled: true
-      maven4-version: '4.0.0-rc-4'
+      maven4-version: '4.0.0-rc-6'
       verify-goal: 'verify'
       matrix-exclude: '[ {"jdk": "25"} ]'
