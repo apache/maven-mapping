@@ -1,46 +1,35 @@
- ------
- Introduction
- ------
- Dennis Lundberg
- ------
- 2013-08-09
- ------
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
 
- ~~ Licensed to the Apache Software Foundation (ASF) under one
- ~~ or more contributor license agreements.  See the NOTICE file
- ~~ distributed with this work for additional information
- ~~ regarding copyright ownership.  The ASF licenses this file
- ~~ to you under the Apache License, Version 2.0 (the
- ~~ "License"); you may not use this file except in compliance
- ~~ with the License.  You may obtain a copy of the License at
- ~~
- ~~   http://www.apache.org/licenses/LICENSE-2.0
- ~~
- ~~ Unless required by applicable law or agreed to in writing,
- ~~ software distributed under the License is distributed on an
- ~~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- ~~ KIND, either express or implied.  See the License for the
- ~~ specific language governing permissions and limitations
- ~~ under the License.
+http://www.apache.org/licenses/LICENSE-2.0
 
-${project.name}
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
 
-  These classes originate from the file name mapping code in the Maven WAR Plugin.
+# Apache Maven Mapping
 
-  The goal is to provide a shared component for all plugins that need to do
-  mapping.
+These classes originate from the file name mapping code in the Maven WAR Plugin.
 
+The goal is to provide a shared component for all plugins that need to do mapping.
 
-* MappingUtils
+## MappingUtils
 
-  This class has a single method, <<<evaluateFileNameMapping>>>, that takes an
-  expression and an <<<Artifact>>> as parameters. It returns a <<<String>>>
-  which is the result of interpolating the values from the <<<Artifact>>>
-  object into the expression.
+This class has a single method, `evaluateFileNameMapping`, that takes an expression and an `Artifact` as parameters. It returns a `String` which is the result of interpolating the values from the `Artifact` object into the expression.
 
-  Here is a bit of code from the WAR Plugin showing how you can use it:
+Here is a bit of code from the WAR Plugin showing how you can use it:
 
-+-----
+```unknown
     protected String getFileName( Artifact artifact )
     {
         if ( getOutputFileNameMapping() != null )
@@ -62,27 +51,20 @@ ${project.name}
             return MappingUtils.evaluateFileNameMapping( MappingUtils.DEFAULT_FILE_NAME_MAPPING, artifact );
         }
     }
-+-----
+```
 
-  Have a look at the
-  {{{http://maven.apache.org/plugins/maven-war-plugin/examples/file-name-mapping.html}documentation for Maven WAR Plugin}}
-  for some examples of expressions that can be used.
+Have a look at the [documentation for Maven WAR Plugin](http://maven.apache.org/plugins/maven-war-plugin/examples/file-name-mapping.html) for some examples of expressions that can be used.
 
-* DashClassifierValueSource
+## DashClassifierValueSource
 
-  This is an implementation of the <<<ValueSource>>> interface, and can be used
-  for interpolation. <<<MappingUtils>>> uses it internally. It adds these two
-  tokens to an <<<Interpolator>>>:
+This is an implementation of the `ValueSource` interface, and can be used for interpolation. `MappingUtils` uses it internally. It adds these two tokens to an `Interpolator`:
 
-  * <<<dashClassifier>>>
+- `dashClassifier`
+- `dashClassifier?`
 
-  * <<<dashClassifier?>>>
+You can invoke it like this:
 
-  []
-
-  You can invoke it like this:
-
-+-----
+```unknown
         Interpolator interpolator = StringSearchInterpolator());
         interpolator.addValueSource( new DashClassifierValueSource( artifact.getClassifier() ) );
-+-----
+```
