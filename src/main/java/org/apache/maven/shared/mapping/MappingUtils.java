@@ -75,7 +75,7 @@ public final class MappingUtils {
      * Default file name mapping incl. classifier.
      */
     public static final String DEFAULT_FILE_NAME_MAPPING_CLASSIFIER =
-            "@{artifactId}@-@{baseVersion}@-@{classifier}@.@{extension}@";
+            "@{artifactId}@-@{baseVersion}@@{dashClassifier?}@.@{extension}@";
 
     /**
      * Evaluates the specified expression for the given artifact.
