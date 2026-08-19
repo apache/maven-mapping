@@ -24,6 +24,7 @@ import org.apache.maven.artifact.handler.DefaultArtifactHandler;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Tests the mapping of file names.
@@ -116,5 +117,12 @@ class MappingUtilsTest {
         assertEquals(
                 "maven-test-lib-1.0-classifier.jar",
                 MappingUtils.evaluateFileNameMapping(mappingWithOptionalClassifier2, jar));
+    }
+
+    @Test
+    void mappingWithNullArtifact() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> MappingUtils.evaluateFileNameMapping("@{artifactId}@.@{extension}@", null));
     }
 }
