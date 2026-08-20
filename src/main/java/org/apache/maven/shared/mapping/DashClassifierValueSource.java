@@ -59,7 +59,7 @@ public class DashClassifierValueSource extends PropertiesBasedValueSource {
     private static Properties createDashClassifierProperties(String classifier) {
         Properties classifierMask = new Properties();
 
-        if (classifier != null) {
+        if (classifier != null && !classifier.isEmpty()) {
             classifierMask.setProperty("dashClassifier?", "-" + classifier);
             classifierMask.setProperty("dashClassifier", "-" + classifier);
         } else {

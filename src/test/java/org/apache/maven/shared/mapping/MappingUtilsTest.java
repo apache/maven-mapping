@@ -100,6 +100,15 @@ class MappingUtilsTest {
                 MappingUtils.evaluateFileNameMapping(MappingUtils.DEFAULT_FILE_NAME_MAPPING_CLASSIFIER, jar));
     }
 
+    @Test
+    void mappingWithEmptyClassifierShouldNotHaveTrailingDash() throws Exception {
+        Artifact jar = new DefaultArtifact(
+                "org.apache.sample", "maven-test-lib", "1.0", null, "jar", "", new DefaultArtifactHandler("jar"));
+        assertEquals(
+                "maven-test-lib-1.0.jar",
+                MappingUtils.evaluateFileNameMapping(MappingUtils.DEFAULT_FILE_NAME_MAPPING_CLASSIFIER, jar));
+    }
+
     /**
      * Test for MWAR-212.
      */
