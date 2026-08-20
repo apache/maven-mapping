@@ -83,7 +83,29 @@ class MappingUtilsTest {
         Artifact jar = new DefaultArtifact(
                 "org.apache.sample", "maven-test-lib", "1.0", null, "jar", null, new DefaultArtifactHandler("jar"));
         assertEquals(
-                "maven-test-lib-1.0-.jar",
+                "maven-test-lib-1.0.jar",
+                MappingUtils.evaluateFileNameMapping(MappingUtils.DEFAULT_FILE_NAME_MAPPING_CLASSIFIER, jar));
+    }
+
+    /**
+     * Test for #65. When classifier is null, the default classifier mapping should
+     * produce a clean filename without a trailing dash.
+     */
+    @Test
+    void mappingWithNullClassifierShouldNotHaveTrailingDash() throws Exception {
+        Artifact jar = new DefaultArtifact(
+                "org.apache.sample", "maven-test-lib", "1.0", null, "jar", null, new DefaultArtifactHandler("jar"));
+        assertEquals(
+                "maven-test-lib-1.0.jar",
+                MappingUtils.evaluateFileNameMapping(MappingUtils.DEFAULT_FILE_NAME_MAPPING_CLASSIFIER, jar));
+    }
+
+    @Test
+    void mappingWithEmptyClassifierShouldNotHaveTrailingDash() throws Exception {
+        Artifact jar = new DefaultArtifact(
+                "org.apache.sample", "maven-test-lib", "1.0", null, "jar", "", new DefaultArtifactHandler("jar"));
+        assertEquals(
+                "maven-test-lib-1.0.jar",
                 MappingUtils.evaluateFileNameMapping(MappingUtils.DEFAULT_FILE_NAME_MAPPING_CLASSIFIER, jar));
     }
 

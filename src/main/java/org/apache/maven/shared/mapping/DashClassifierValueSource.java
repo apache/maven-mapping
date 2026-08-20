@@ -25,7 +25,6 @@ import org.codehaus.plexus.interpolation.PropertiesBasedValueSource;
 /**
  * This is a ValueSource, that can be used in an Interpolator. It supports special expressions, like
  * <code>dashClassifier</code> and <code>dashClassifier?</code>.
- *
  */
 public class DashClassifierValueSource extends PropertiesBasedValueSource {
     /**
@@ -40,7 +39,7 @@ public class DashClassifierValueSource extends PropertiesBasedValueSource {
     private static Properties createDashClassifierProperties(String classifier) {
         Properties classifierMask = new Properties();
 
-        if (classifier != null) {
+        if (classifier != null && !classifier.isEmpty()) {
             classifierMask.setProperty("dashClassifier?", "-" + classifier);
             classifierMask.setProperty("dashClassifier", "-" + classifier);
         } else {
