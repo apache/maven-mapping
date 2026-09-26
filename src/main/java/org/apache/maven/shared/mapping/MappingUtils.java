@@ -67,6 +67,9 @@ public final class MappingUtils {
      * @return expression the expression to be evaluated
      */
     public static String evaluateFileNameMapping(String expression, Artifact artifact) throws InterpolationException {
+        if (artifact == null) {
+            throw new IllegalArgumentException("artifact cannot be null");
+        }
 
         RegexBasedInterpolator interpolator = new RegexBasedInterpolator("\\@\\{(", ")?([^}]+)\\}@");
         interpolator.addValueSource(new ObjectBasedValueSource(artifact));
