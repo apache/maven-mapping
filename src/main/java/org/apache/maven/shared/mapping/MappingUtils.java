@@ -68,13 +68,13 @@ public final class MappingUtils {
      */
     public static String evaluateFileNameMapping(String expression, Artifact artifact) throws InterpolationException {
 
-        RegexBasedInterpolator interpolator = new RegexBasedInterpolator("\\@\\{(", ")?([^}]+)\\}@");
+        RegexBasedInterpolator interpolator = new RegexBasedInterpolator("", "\\@\\{([^}]+)\\}@");
         interpolator.addValueSource(new ObjectBasedValueSource(artifact));
         interpolator.addValueSource(new ObjectBasedValueSource(artifact.getArtifactHandler()));
 
         // Support for special expressions, like @{dashClassifier?}@, see MWAR-212
         interpolator.addValueSource(new DashClassifierValueSource(artifact.getClassifier()));
 
-        return interpolator.interpolate(expression, "__artifact");
+        return interpolator.interpolate(expression, (String) null);
     }
 }
