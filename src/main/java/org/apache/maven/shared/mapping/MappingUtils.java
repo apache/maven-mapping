@@ -18,7 +18,7 @@
  */
 package org.apache.maven.shared.mapping;
 
-import org.apache.maven.artifact.Artifact;
+import org.apache.maven.api.Artifact;
 import org.codehaus.plexus.interpolation.InterpolationException;
 import org.codehaus.plexus.interpolation.ObjectBasedValueSource;
 import org.codehaus.plexus.interpolation.RegexBasedInterpolator;
@@ -70,7 +70,6 @@ public final class MappingUtils {
 
         RegexBasedInterpolator interpolator = new RegexBasedInterpolator("\\@\\{(", ")?([^}]+)\\}@");
         interpolator.addValueSource(new ObjectBasedValueSource(artifact));
-        interpolator.addValueSource(new ObjectBasedValueSource(artifact.getArtifactHandler()));
 
         // Support for special expressions, like @{dashClassifier?}@, see MWAR-212
         interpolator.addValueSource(new DashClassifierValueSource(artifact.getClassifier()));

@@ -18,9 +18,7 @@
  */
 package org.apache.maven.shared.mapping;
 
-import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.DefaultArtifact;
-import org.apache.maven.artifact.handler.DefaultArtifactHandler;
+import org.apache.maven.api.Artifact;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,16 +30,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class MappingUtilsTest {
 
+    private static Artifact artifact(String classifier) {
+        return new StubArtifact("org.apache.sample", "maven-test-lib", "1.0", "1.0", classifier, "jar");
+    }
+
     @Test
     void completeMapping() throws Exception {
-        Artifact jar = new DefaultArtifact(
-                "org.apache.sample",
-                "maven-test-lib",
-                "1.0",
-                "compile",
-                "jar",
-                null,
-                new DefaultArtifactHandler("jar"));
+        Artifact jar = artifact(null);
         assertEquals(
                 "maven-test-lib-1.0.jar",
                 MappingUtils.evaluateFileNameMapping("@{artifactId}@-@{version}@.@{extension}@", jar));
@@ -49,15 +44,13 @@ class MappingUtilsTest {
 
     @Test
     void noVersionMapping() throws Exception {
-        Artifact jar = new DefaultArtifact(
-                "org.apache.sample", "maven-test-lib", "1.0", null, "jar", null, new DefaultArtifactHandler("jar"));
+        Artifact jar = artifact(null);
         assertEquals("maven-test-lib.jar", MappingUtils.evaluateFileNameMapping("@{artifactId}@.@{extension}@", jar));
     }
 
     @Test
     void mappingWithGroupId() throws Exception {
-        Artifact jar = new DefaultArtifact(
-                "org.apache.sample", "maven-test-lib", "1.0", null, "jar", null, new DefaultArtifactHandler("jar"));
+        Artifact jar = artifact(null);
         assertEquals(
                 "org.apache.sample-maven-test-lib-1.0.jar",
                 MappingUtils.evaluateFileNameMapping("@{groupId}@-@{artifactId}@-@{version}@.@{extension}@", jar));
@@ -65,14 +58,7 @@ class MappingUtilsTest {
 
     @Test
     void mappingWithClassifier() throws Exception {
-        Artifact jar = new DefaultArtifact(
-                "org.apache.sample",
-                "maven-test-lib",
-                "1.0",
-                null,
-                "jar",
-                "classifier",
-                new DefaultArtifactHandler("jar"));
+        Artifact jar = artifact("classifier");
         assertEquals(
                 "maven-test-lib-1.0-classifier.jar",
                 MappingUtils.evaluateFileNameMapping(MappingUtils.DEFAULT_FILE_NAME_MAPPING_CLASSIFIER, jar));
@@ -80,8 +66,7 @@ class MappingUtilsTest {
 
     @Test
     void mappingWithNullClassifier() throws Exception {
-        Artifact jar = new DefaultArtifact(
-                "org.apache.sample", "maven-test-lib", "1.0", null, "jar", null, new DefaultArtifactHandler("jar"));
+        Artifact jar = artifact(null);
         assertEquals(
                 "maven-test-lib-1.0.jar",
                 MappingUtils.evaluateFileNameMapping(MappingUtils.DEFAULT_FILE_NAME_MAPPING_CLASSIFIER, jar));
@@ -93,8 +78,7 @@ class MappingUtilsTest {
      */
     @Test
     void mappingWithNullClassifierShouldNotHaveTrailingDash() throws Exception {
-        Artifact jar = new DefaultArtifact(
-                "org.apache.sample", "maven-test-lib", "1.0", null, "jar", null, new DefaultArtifactHandler("jar"));
+        Artifact jar = artifact(null);
         assertEquals(
                 "maven-test-lib-1.0.jar",
                 MappingUtils.evaluateFileNameMapping(MappingUtils.DEFAULT_FILE_NAME_MAPPING_CLASSIFIER, jar));
@@ -102,8 +86,7 @@ class MappingUtilsTest {
 
     @Test
     void mappingWithEmptyClassifierShouldNotHaveTrailingDash() throws Exception {
-        Artifact jar = new DefaultArtifact(
-                "org.apache.sample", "maven-test-lib", "1.0", null, "jar", "", new DefaultArtifactHandler("jar"));
+        Artifact jar = artifact("");
         assertEquals(
                 "maven-test-lib-1.0.jar",
                 MappingUtils.evaluateFileNameMapping(MappingUtils.DEFAULT_FILE_NAME_MAPPING_CLASSIFIER, jar));
@@ -117,26 +100,38 @@ class MappingUtilsTest {
         final String mappingWithOptionalClassifier1 = "@{artifactId}@-@{version}@@{dashClassifier}@.@{extension}@";
         final String mappingWithOptionalClassifier2 = "@{artifactId}@-@{version}@@{dashClassifier?}@.@{extension}@";
 
-        Artifact jar = new DefaultArtifact(
-                "org.apache.sample", "maven-test-lib", "1.0", null, "jar", null, new DefaultArtifactHandler("jar"));
+        Artifact jar = artifact(null);
         assertEquals(
                 "maven-test-lib-1.0.jar", MappingUtils.evaluateFileNameMapping(mappingWithOptionalClassifier1, jar));
         assertEquals(
                 "maven-test-lib-1.0.jar", MappingUtils.evaluateFileNameMapping(mappingWithOptionalClassifier2, jar));
 
-        jar = new DefaultArtifact(
-                "org.apache.sample",
-                "maven-test-lib",
-                "1.0",
-                null,
-                "jar",
-                "classifier",
-                new DefaultArtifactHandler("jar"));
+        jar = artifact("classifier");
         assertEquals(
                 "maven-test-lib-1.0-classifier.jar",
                 MappingUtils.evaluateFileNameMapping(mappingWithOptionalClassifier1, jar));
         assertEquals(
                 "maven-test-lib-1.0-classifier.jar",
                 MappingUtils.evaluateFileNameMapping(mappingWithOptionalClassifier2, jar));
+    }
+
+    @Test
+    void mappingUsesBaseVersionForTimestampedSnapshot() throws Exception {
+        Artifact snapshot = new StubArtifact(
+                "org.apache.sample", "maven-test-lib", "1.0-20200101.120000-1", "1.0-SNAPSHOT", null, "jar");
+        assertEquals(
+                "maven-test-lib-1.0-SNAPSHOT.jar",
+                MappingUtils.evaluateFileNameMapping(MappingUtils.DEFAULT_FILE_NAME_MAPPING, snapshot));
+        assertEquals(
+                "maven-test-lib-1.0-20200101.120000-1.jar",
+                MappingUtils.evaluateFileNameMapping("@{artifactId}@-@{version}@.@{extension}@", snapshot));
+    }
+
+    @Test
+    void mappingUsesExtensionOfArtifact() throws Exception {
+        Artifact war = new StubArtifact("org.apache.sample", "maven-test-lib", "1.0", "1.0", "tests", "war");
+        assertEquals(
+                "maven-test-lib-1.0-tests.war",
+                MappingUtils.evaluateFileNameMapping(MappingUtils.DEFAULT_FILE_NAME_MAPPING_CLASSIFIER, war));
     }
 }
