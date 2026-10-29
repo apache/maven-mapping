@@ -43,8 +43,8 @@
     <url>https://github.com/apache/maven-mapping/issues</url>
   </issueManagement>
   <ciManagement>
-    <system>Jenkins</system>
-    <url>https://ci-maven.apache.org/job/Maven/job/maven-box/job/maven-mapping/</url>
+    <system>GitHub</system>
+    <url>https://github.com/apache/maven-mapping/actions</url>
   </ciManagement>
   <distributionManagement>
     <site>
