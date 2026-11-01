@@ -65,6 +65,6 @@ This is an implementation of the `ValueSource` interface, and can be used for in
 You can invoke it like this:
 
 ```java
-        Interpolator interpolator = StringSearchInterpolator());
+        Interpolator interpolator = new StringSearchInterpolator();
         interpolator.addValueSource( new DashClassifierValueSource( artifact.getClassifier() ) );
 ```
