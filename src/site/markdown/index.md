@@ -29,7 +29,7 @@ This class has a single method, `evaluateFileNameMapping`, that takes an express
 
 Here is a bit of code from the WAR Plugin showing how you can use it:
 
-```unknown
+```java
     protected String getFileName( Artifact artifact )
     {
         if ( getOutputFileNameMapping() != null )
@@ -64,7 +64,7 @@ This is an implementation of the `ValueSource` interface, and can be used for in
 
 You can invoke it like this:
 
-```unknown
+```java
         Interpolator interpolator = StringSearchInterpolator());
         interpolator.addValueSource( new DashClassifierValueSource( artifact.getClassifier() ) );
 ```
