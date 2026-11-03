@@ -139,4 +139,46 @@ class MappingUtilsTest {
                 "maven-test-lib-1.0-classifier.jar",
                 MappingUtils.evaluateFileNameMapping(mappingWithOptionalClassifier2, jar));
     }
+
+    @Test
+    void baseVersionMapping() throws Exception {
+        Artifact jar = new DefaultArtifact(
+                "org.apache.sample", "maven-test-lib", "1.0", null, "jar", null, new DefaultArtifactHandler("jar"));
+        assertEquals(
+                "maven-test-lib-1.0.jar",
+                MappingUtils.evaluateFileNameMapping("@{artifactId}@-@{baseVersion}@.@{extension}@", jar));
+    }
+
+    @Test
+    void defaultFileNameMapping() throws Exception {
+        Artifact jar = new DefaultArtifact(
+                "org.apache.sample", "maven-test-lib", "1.0", null, "jar", null, new DefaultArtifactHandler("jar"));
+        assertEquals(
+                "maven-test-lib-1.0.jar",
+                MappingUtils.evaluateFileNameMapping(MappingUtils.DEFAULT_FILE_NAME_MAPPING, jar));
+    }
+
+    @Test
+    void defaultFileNameMappingClassifier() throws Exception {
+        Artifact jar = new DefaultArtifact(
+                "org.apache.sample",
+                "maven-test-lib",
+                "1.0",
+                null,
+                "jar",
+                "classifier",
+                new DefaultArtifactHandler("jar"));
+        assertEquals(
+                "maven-test-lib-1.0-classifier.jar",
+                MappingUtils.evaluateFileNameMapping(MappingUtils.DEFAULT_FILE_NAME_MAPPING_CLASSIFIER, jar));
+    }
+
+    @Test
+    void defaultFileNameMappingNullClassifier() throws Exception {
+        Artifact jar = new DefaultArtifact(
+                "org.apache.sample", "maven-test-lib", "1.0", null, "jar", null, new DefaultArtifactHandler("jar"));
+        assertEquals(
+                "maven-test-lib-1.0-.jar",
+                MappingUtils.evaluateFileNameMapping(MappingUtils.DEFAULT_FILE_NAME_MAPPING_CLASSIFIER, jar));
+    }
 }
